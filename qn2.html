@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 10%;
+        }
+        
+        td {
+          border: 1px solid #ccc;
+          padding: 8px;
+          text-align: left;
+        }
+      </style>
+</head>
+<body>
+      <form>
+        <P><u>Form</u></P>
+    <label for="startRange">Start Range:</label>
+    <input type="number" id="startRange" value="1"><br><br>
+    <label for="endRange">End Range:</label>
+    <input type="number" id="endRange" value="1"><br><br>
+
+    <button type="button" onclick="displayTable()">Display Table</button>
+    <p>Valid Range 1-7</p>
+    <div id="tableContainer">
+    </div>
+
+  <script>
+    let data = ["syllabus.html", "p1.html", "p2.html", "style.html", "email.html", "system.html", "process.html"];
+    let endRange = data.length;
+    function displayTable() {
+      const startInput = document.getElementById('startRange');
+      const endInput = document.getElementById('endRange');
+      const start = parseInt(startInput.value);
+      const end = parseInt(endInput.value);
+
+      const tableContainer = document.getElementById('tableContainer');
+      tableContainer.innerHTML = '';
+
+      if (isNaN(start) || isNaN(end) || start < 1 || start > end || end > endRange) {
+        tableContainer.textContent = 'Invalid range, valid range: 1-' + endRange;
+        return;
+      }
+
+      const table = document.createElement('table');
+      const tbody = document.createElement('tbody');
+
+      for (let i = start - 1; i < end; i++) {
+        const link = document.createElement('a');
+        link.href = data[i];
+        link.textContent = data[i];
+
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.appendChild(link);
+        row.appendChild(cell);
+        tbody.appendChild(row);
+      }
+
+      table.appendChild(tbody);
+      tableContainer.appendChild(table);
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const rangeMessage = 'Valid Range: 1-' + endRange;
+      document.getElementById('startRange').setAttribute('placeholder', rangeMessage);
+      document.getElementById('endRange').setAttribute('placeholder', rangeMessage);
+    });
+    
+    </script>
+  </form>
+</body>
+</html>
